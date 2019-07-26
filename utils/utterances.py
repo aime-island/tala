@@ -21,10 +21,11 @@ def save_utterances(transcript_queue, audio_queue, corpus):
     while(True):
         transcript = transcript_queue.get()
         audio = audio_queue.get()
-        save_audio(audio, transcript['id'], corpus)
+        seconds = save_audio(audio, transcript['id'], corpus)
         row = {
             'utterance': transcript['transcript'],
-            'id': transcript['id'] + '.wav'
+            'id': transcript['id'] + '.wav',
+            'seconds': seconds
         }
         df = pd.DataFrame(columns=['utterance', 'id'])
         df = df.append(row, ignore_index=True)

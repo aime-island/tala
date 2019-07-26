@@ -9,10 +9,14 @@ def read_files():
     for f in files:
         unread = pd.read_csv(join('./corpus', f))
         read = pd.read_csv(join('./transcripts', f))
+        seconds = read['seconds'].sum()
+        if not seconds:
+            seconds = 0
         obj = {
             'file': f,
             'unread': len(unread),
-            'read': len(read)
+            'read': len(read),
+            'seconds': seconds
         }
         files_array.append(obj)
     return files_array
