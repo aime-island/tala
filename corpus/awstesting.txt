@@ -1,3 +1,0 @@
-utterance,id
-key,62d1c6dd-f037-47c1-801c-86c05f13d69e
-aLOI03pyiJK89HvcqLkqFhGY50fvSljKvnjFj3i1,30421d5f-5ae1-4706-9596-f0e5dc8943f5
