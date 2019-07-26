@@ -1,0 +1,2 @@
+utterance,id
+Þetta eru íslensk orð.,84e40702-3074-4917-a201-0685df6ab843.wav

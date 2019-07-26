@@ -1,0 +1,4 @@
+utterance,id
+Ég heiti Ólafur Helgi.,acc0700d-1349-4613-8a92-14b9df8552c1
+Ég er kallaður Olli.,af0135d8-3932-4a55-8bc9-3a9c9957dc2b
+Ég er svakalegur kall.,aa088fe3-be3a-4306-818e-6311f32cdffe
