@@ -12,7 +12,8 @@ def save_corpus(text, name, self):
     df['id'] = 'nothing'
     for _, row in df.iterrows():
         row['id'] = str(uuid.uuid4())
-    df.to_csv(os.path.join('./corpus', name), index=False)
+    df['seconds'] = 0
+    df.to_csv(os.path.join('./corpus', name), index=False, sep='\t')
     df2 = pd.DataFrame(columns=['utterance', 'id', 'seconds'])
-    df2.to_csv(os.path.join('./transcripts', name), index=False)
+    df2.to_csv(os.path.join('./transcripts', name), index=False, sep='\t')
     self.sendMessage('móttekið'.encode('utf8'))

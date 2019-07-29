@@ -16,8 +16,7 @@ from utils.utterances import make_queue, save_utterances
 from threading import Thread
 
 from queue import Queue, Empty
-utterances_audio = Queue()
-utterances_transcript = Queue()
+
 
 
 class GetFiles(WebSocketServerProtocol):
@@ -54,6 +53,8 @@ class GetText(WebSocketServerProtocol):
 
 class SubmitText(WebSocketServerProtocol):
 
+    name = ''
+
     def onMessage(self, payload, isBinary):
         if isBinary:
             save_corpus(payload, self.name, self)
@@ -66,20 +67,25 @@ class Audio(WebSocketServerProtocol):
 
     def onConnect(self, request):
         print("Client connecting: {0}".format(request.peer))
+        self.utterances_audio = Queue()
+        self.utterances_transcript = Queue()
+        self.utterances_remove = Queue()
         self.save_worker = Thread(
             target=save_utterances,
-            args=(utterances_transcript, utterances_audio, selected_file))
+            args=(self.utterances_transcript, self.utterances_audio, selected_file))
         self.save_worker.start()
 
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
+        self.utterances_transcript.join()
+        self.sendMessage('móttekið'.encode('utf8'))
 
     def onMessage(self, payload, isBinary):
         if not isBinary:
             self.message = json.loads(payload.decode('utf8'))
-            utterances_transcript.put(self.message)
+            self.utterances_transcript.put(self.message)
         else:
-            utterances_audio.put(payload)
+            self.utterances_audio.put(payload)
 
 
 def start():
